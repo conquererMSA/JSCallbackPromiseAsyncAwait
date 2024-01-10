@@ -37,14 +37,14 @@
 //     console.log(value);
 //     })
 
-const calculate=(num1,num2, callback)=>{
-    if(callback)callback('its will call later') //wrong
-    const sum=num1+num2 
-    console.log('its call first',sum);
-    }
-calculate(5,5,(strValue)=>{
-    console.log(strValue);
-})
+// const calculate=(num1,num2, callback)=>{
+//     if(callback)callback('its will call later') //wrong
+//     const sum=num1+num2 
+//     console.log('its call first',sum);
+//     }
+// calculate(5,5,(strValue)=>{
+//     console.log(strValue);
+// })
 
 
 
@@ -104,5 +104,61 @@ calculate(5,5,(strValue)=>{
 
 // takeOrder('MSA',processingOrder('MSA',orderStatus('MSA')))
 
+// three callback function about course progress 
 
+const payment=true
+const marks=80
+
+function enroll(callback){
+    console.log('Payment is loading...');
+    setTimeout(function(){
+      if(payment){
+        //ekhane porer kaj/ function call kora hobe
+        //ei callback muloto progress function, zeti para hisabe getCertificate function ke cay
+         callback()
+      }
+      else{
+        console.log('Payment failed!');
+        }
+    },2000)
+}
+
+function progress(callback){
+    console.log('Course on progress...');
+    setTimeout(function(){
+      if(marks>=80){
+        console.log('You are obtain letter marks. Preparing your certificate')
+        //ei callback muloto getCertificate function, zeti para recieve kore na
+        callback()
+        }
+        else{
+            console.log('You could not pass');
+            }
+    },4000)
+    
+}
+
+function getCertificate(){
+    setTimeout(function(){
+        console.log('Congrats! You got the certificate');
+    },2000)
+    
+}
+//dont write like this
+// enroll()
+// progress()
+// getCertificate()
+
+//dont write like this
+// enroll(progress(getCertificate))
+
+enroll(function(){
+    progress(getCertificate)
+})
+/*
+Callback.js:113 Payment is loading...
+Callback.js:127 Course on progress...
+Callback.js:130 You are obtain letter marks. Preparing your certificate
+Callback.js:143 Congrats! You got the certificate
+*/
 
